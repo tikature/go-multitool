@@ -1,0 +1,31 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "api/*.go",
+            "use": "@vercel/go"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/",
+            "dest": "/api/index.go"
+        },
+        {
+            "src": "/calculator",
+            "dest": "/api/calculator.go"
+        },
+        {
+            "src": "/games",
+            "dest": "/api/games.go"
+        },
+        {
+            "src": "/textutils",
+            "dest": "/api/textutils.go"
+        },
+        {
+            "src": "/static/(.*)",
+            "dest": "/static/$1"
+        }
+    ]
+}
