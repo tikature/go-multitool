@@ -2,26 +2,38 @@
     "version": 2,
     "builds": [
         {
-            "src": "api/*.go",
+            "src": "api/index/index.go",
+            "use": "@vercel/go"
+        },
+        {
+            "src": "api/calculator/calculator.go",
+            "use": "@vercel/go"
+        },
+        {
+            "src": "api/games/games.go",
+            "use": "@vercel/go"
+        },
+        {
+            "src": "api/textutils/textutils.go",
             "use": "@vercel/go"
         }
     ],
     "routes": [
         {
             "src": "/",
-            "dest": "/api/index.go"
+            "dest": "/api/index/index.go"
         },
         {
             "src": "/calculator",
-            "dest": "/api/calculator.go"
+            "dest": "/api/calculator/calculator.go"
         },
         {
             "src": "/games",
-            "dest": "/api/games.go"
+            "dest": "/api/games/games.go"
         },
         {
             "src": "/textutils",
-            "dest": "/api/textutils.go"
+            "dest": "/api/textutils/textutils.go"
         },
         {
             "src": "/static/(.*)",
