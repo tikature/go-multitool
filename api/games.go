@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
     "fmt"
@@ -47,5 +47,3 @@ func Handler(w http.ResponseWriter, r *http.Request) {
     </html>
     `)
 }
-
-func main() {}
