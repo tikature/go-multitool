@@ -19,6 +19,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
             <li><a href="/calculator">Calculator</a></li>
             <li><a href="/games">Guess Number Game</a></li>
             <li><a href="/textutils">Text Utilities</a></li>
+            <li><a href="/textformatter">Text Formatter</a></li>
+            <li><a href="/unitconverter">Unit Converter</a></li>
+            <li><a href="/quotes">Random Quote Generator</a></li>
+            <li><a href="/bmi">BMI Calculator</a></li>
+            <li><a href="/num2words">Number to Words</a></li>
         </ul>
     </body>
     </html>
