@@ -35,8 +35,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
     <body>
         <h1>BMI Calculator</h1>
         <form method="POST">
-            <input name="weight" type="number" step="any" placeholder="Weight (kg)" required>
-            <input name="height" type="number" step="any" placeholder="Height (m)" required>
+            <input name="weight" type="number" step="any" placeholder="Weight (kg) ex: 52" required>
+            <input name="height" type="number" step="any" placeholder="Height (m) ex: 1.53" required>
             <button type="submit">Calculate</button>
         </form>
         <a href="/">Back to menu</a>
