@@ -45,7 +45,9 @@ func QRCodeHandler(w http.ResponseWriter, r *http.Request) {
             <div class="card shadow p-4 text-center">
                 <h1 class="mb-4">QR Code Result</h1>
                 <p><b>Input:</b> %s</p>
-                <img src="data:image/png;base64,%s" class="img-thumbnail mb-3" style="max-width:200px;"/>
+                <div class="d-flex justify-content-center">
+					<img src="data:image/png;base64,%s" class="img-thumbnail mb-3" style="max-width:200px;"/>
+				</div>
                 <div class="mt-3">
                     <a href="/qrcodegen" class="btn btn-primary me-2">Generate Again</a>
                     <a href="/" class="btn btn-secondary">Menu</a>
