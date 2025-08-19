@@ -10,23 +10,27 @@ func Handler(w http.ResponseWriter, r *http.Request) {
     fmt.Fprint(w, `
     <html>
     <head>
-    <link rel="stylesheet" href="/static/style.css">
-    <title>Go MultiTool</title>
+        <title>Go MultiTool</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
-        <h1>Go MultiTool</h1>
-        <ul>
-            <li><a href="/calculator">Calculator</a></li>
-            <li><a href="/games">Guess Number Game</a></li>
-            <li><a href="/textformatter">Text Formatter</a></li>
-            <li><a href="/unitconverter">Unit Converter</a></li>
-            <li><a href="/bmi">BMI Calculator</a></li>
-            <li><a href="/agecalc">Age Calculator</a></li>
-            <li><a href="/palindrome">Palindrome Checker</a></li>
-            <li><a href="/prime">Prime Checker</a></li>
-            <li><a href="/passwordgen">Password Generator</a></li>
-            <li><a href="/qrcodegen">QR Code Generator</a></li>
-        </ul>
+    <body class="bg-light">
+        <div class="container mt-5">
+            <div class="card shadow p-4">
+                <h1 class="text-center mb-4">Go MultiTool</h1>
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="/calculator">🧮 Calculator</a></li>
+                    <li class="list-group-item"><a href="/games">🎮 Guess Number Game</a></li>
+                    <li class="list-group-item"><a href="/textformatter">📝 Text Formatter</a></li>
+                    <li class="list-group-item"><a href="/unitconverter">📏 Unit Converter</a></li>
+                    <li class="list-group-item"><a href="/bmi">⚖️ BMI Calculator</a></li>
+                    <li class="list-group-item"><a href="/agecalc">📅 Age Calculator</a></li>
+                    <li class="list-group-item"><a href="/palindrome">🔄 Palindrome Checker</a></li>
+                    <li class="list-group-item"><a href="/prime">🔢 Prime Checker</a></li>
+                    <li class="list-group-item"><a href="/passwordgen">🔑 Password Generator</a></li>
+                    <li class="list-group-item"><a href="/qrcodegen">📷 QR Code Generator</a></li>
+                </ul>
+            </div>
+        </div>
     </body>
     </html>
     `)
