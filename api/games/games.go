@@ -37,9 +37,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
                 <div class="card shadow p-4 text-center">
                     <h2>Guess the Number</h2>
                     <div class="alert alert-info">%s</div>
-                    <div class="btn-group mt-3" role="group">
-                        <a href="/games" class="btn btn-primary btn-sm">Try Again</a>
-                        <a href="/" class="btn btn-secondary btn-sm">Menu</a>
+                    <div class="d-flex justify-content-center gap-3 mt-3">
+                        <a href="/games" class="btn btn-primary px-4">Try Again</a>
+                        <a href="/" class="btn btn-secondary px-4">Menu</a>
                     </div>
                 </div>
             </div>
