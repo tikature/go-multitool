@@ -1,43 +1,56 @@
 package handler
 
 import (
-    "fmt"
-    "net/http"
-    "strconv"
-    "time"
+	"fmt"
+	"net/http"
+	"time"
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "text/html")
-    if r.Method == http.MethodPost {
-        day, _ := strconv.Atoi(r.FormValue("day"))
-        month, _ := strconv.Atoi(r.FormValue("month"))
-        year, _ := strconv.Atoi(r.FormValue("year"))
+	w.Header().Set("Content-Type", "text/html")
 
-        dob := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
-        today := time.Now()
-        age := today.Year() - dob.Year()
-        if today.YearDay() < dob.YearDay() {
-            age--
-        }
+	if r.Method == http.MethodPost {
+		birthdate := r.FormValue("birthdate")
 
-        fmt.Fprintf(w, `<p>Your Age: %d years</p><a href="/agecalc">Back</a>`, age)
-        return
-    }
+		// pakai layout yang fix sesuai HTML date input (YYYY-MM-DD)
+		layout := "2006-01-02"
+		bd, err := time.Parse(layout, birthdate)
+		if err != nil {
+			fmt.Fprintf(w, "<p style='color:red'>Invalid date format. Use YYYY-MM-DD.</p><a href='/agecalc'>Back</a>")
+			return
+		}
 
-    fmt.Fprint(w, `
-    <html>
-    <head><title>Age Calculator</title></head>
-    <body>
-        <h1>Age Calculator</h1>
-        <form method="POST">
-            <input name="day" type="number" placeholder="Day" required>
-            <input name="month" type="number" placeholder="Month" required>
-            <input name="year" type="number" placeholder="Year" required>
-            <button type="submit">Calculate</button>
-        </form>
-        <a href="/">Back to menu</a>
-    </body>
-    </html>
-    `)
+		today := time.Now()
+		age := today.Year() - bd.Year()
+		if today.YearDay() < bd.YearDay() {
+			age--
+		}
+
+		fmt.Fprintf(w, `
+			<html>
+			<head><title>Age Calculator</title></head>
+			<body>
+				<h1>Age Calculator</h1>
+				<p>Birthdate: %s</p>
+				<p>Your age: %d years</p>
+				<a href="/agecalc">Back</a>
+			</body>
+			</html>
+		`, birthdate, age)
+		return
+	}
+
+	fmt.Fprint(w, `
+	<html>
+	<head><title>Age Calculator</title></head>
+	<body>
+		<h1>Age Calculator</h1>
+		<form method="POST">
+			<input type="date" name="birthdate" required>
+			<button type="submit">Calculate</button>
+		</form>
+		<a href="/">Back to menu</a>
+	</body>
+	</html>
+	`)
 }

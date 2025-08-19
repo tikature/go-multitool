@@ -92,6 +92,10 @@
             "dest": "/api/qrcodegen/qrcodegen.go"
         },
         {
+            "src": "/agecalc",
+            "dest": "/api/agecalc/agecalc.go"
+        },
+        {
             "src": "/static/(.*)",
             "dest": "/static/$1"
         }
