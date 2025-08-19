@@ -35,28 +35,28 @@ func QRCodeHandler(w http.ResponseWriter, r *http.Request) {
 
         w.Header().Set("Content-Type", "text/html")
         fmt.Fprintf(w, `
-        <html>
-        <head>
-            <title>QR Code Generator</title>
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        </head>
-        <body class="bg-light">
-        <div class="container py-5">
-            <div class="card shadow p-4 text-center">
-                <h1 class="mb-4">QR Code Result</h1>
-                <p><b>Input:</b> %s</p>
-                <div class="d-flex justify-content-center">
+		<html>
+		<head>
+			<title>QR Code Generator</title>
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		</head>
+		<body class="bg-light">
+		<div class="container py-5">
+			<div class="card shadow p-4 text-center">
+				<h1 class="mb-4">QR Code Result</h1>
+				<p><b>Input:</b> %s</p>
+				<div class="d-flex justify-content-center">
 					<img src="data:image/png;base64,%s" class="img-thumbnail mb-3" style="max-width:200px;"/>
 				</div>
-                <div class="mt-3">
-                    <a href="/qrcodegen" class="btn btn-primary me-2">Generate Again</a>
-                    <a href="/" class="btn btn-secondary">Menu</a>
-                </div>
-            </div>
-        </div>
-        </body>
-        </html>
-        `, text, base64Img, text, fgColor, bgColor)
+				<div class="mt-3">
+					<a href="/qrcodegen" class="btn btn-primary me-2">Generate Again</a>
+					<a href="/" class="btn btn-secondary">Menu</a>
+				</div>
+			</div>
+		</div>
+		</body>
+		</html>
+		`, text, base64Img)
         return
     }
 
