@@ -3,40 +3,32 @@ package handler
 import (
     "fmt"
     "net/http"
-    "strconv"
+    "strings"
 )
-
-func isPrime(n int) bool {
-    if n < 2 {
-        return false
-    }
-    for i := 2; i*i <= n; i++ {
-        if n%i == 0 {
-            return false
-        }
-    }
-    return true
-}
 
 func Handler(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "text/html")
     if r.Method == http.MethodPost {
-        n, _ := strconv.Atoi(r.FormValue("number"))
-        result := "Not Prime"
-        if isPrime(n) {
-            result = "Prime"
+        input := strings.ToLower(strings.ReplaceAll(r.FormValue("text"), " ", ""))
+        rev := ""
+        for i := len(input) - 1; i >= 0; i-- {
+            rev += string(input[i])
         }
-        fmt.Fprintf(w, `<p>Result: %d is %s</p><a href="/prime">Back</a>`, n, result)
+        result := "Not Palindrome"
+        if input == rev {
+            result = "Palindrome"
+        }
+        fmt.Fprintf(w, `<p>Result: %s</p><a href="/palindrome">Back</a>`, result)
         return
     }
 
     fmt.Fprint(w, `
     <html>
-    <head><title>Prime Checker</title></head>
+    <head><title>Palindrome Checker</title></head>
     <body>
-        <h1>Prime Number Checker</h1>
+        <h1>Palindrome Checker</h1>
         <form method="POST">
-            <input name="number" type="number" placeholder="Enter number" required>
+            <input name="text" type="text" placeholder="Enter text" required>
             <button type="submit">Check</button>
         </form>
         <a href="/">Back to menu</a>
