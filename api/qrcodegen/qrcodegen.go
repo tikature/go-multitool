@@ -4,7 +4,6 @@ import (
     "bytes"
     "encoding/base64"
     "fmt"
-    "image"
     "image/color"
     "image/png"
     "net/http"
@@ -30,13 +29,9 @@ func QRCodeHandler(w http.ResponseWriter, r *http.Request) {
         qr.ForegroundColor = fg
 
         var buf bytes.Buffer
-        _ = png.Encode(&buf, qr.Image(256))
+        _ = png.Encode(&buf, qr.Image(200))
 
-        var img image.Image
-        img, _ = png.Decode(&buf)
-
-        var finalBuf bytes.Buffer
-        png.Encode(&finalBuf, img)
+        base64Img := base64.StdEncoding.EncodeToString(buf.Bytes())
 
         w.Header().Set("Content-Type", "text/html")
         fmt.Fprintf(w, `
@@ -50,16 +45,17 @@ func QRCodeHandler(w http.ResponseWriter, r *http.Request) {
             <div class="card shadow p-4 text-center">
                 <h1 class="mb-4">QR Code Result</h1>
                 <p><b>Input:</b> %s</p>
-                <img src="data:image/png;base64,%s" class="img-fluid border rounded shadow-sm"/>
+                <img src="data:image/png;base64,%s" class="img-thumbnail mb-3" style="max-width:200px;"/>
                 <div class="mt-3">
-                    <a href="/qrcodegen" class="btn btn-primary">Generate Again</a>
+                    <a href="/download?text=%s&fg=%s&bg=%s" class="btn btn-success me-2">Download</a>
+                    <a href="/qrcodegen" class="btn btn-primary me-2">Generate Again</a>
                     <a href="/" class="btn btn-secondary">Menu</a>
                 </div>
             </div>
         </div>
         </body>
         </html>
-        `, text, base64.StdEncoding.EncodeToString(finalBuf.Bytes()))
+        `, text, base64Img, text, fgColor, bgColor)
         return
     }
 
@@ -96,6 +92,31 @@ func QRCodeHandler(w http.ResponseWriter, r *http.Request) {
     </body>
     </html>
     `)
+}
+
+// endpoint untuk download
+func QRDownloadHandler(w http.ResponseWriter, r *http.Request) {
+    text := r.URL.Query().Get("text")
+    fgColor := r.URL.Query().Get("fg")
+    bgColor := r.URL.Query().Get("bg")
+
+    qr, err := qrcode.New(text, qrcode.Medium)
+    if err != nil {
+        http.Error(w, "Failed to generate QR", http.StatusInternalServerError)
+        return
+    }
+
+    fg := parseHexColor(fgColor, color.Black)
+    bg := parseHexColor(bgColor, color.White)
+    qr.BackgroundColor = bg
+    qr.ForegroundColor = fg
+
+    var buf bytes.Buffer
+    _ = png.Encode(&buf, qr.Image(300)) // versi download lebih besar
+
+    w.Header().Set("Content-Type", "application/octet-stream")
+    w.Header().Set("Content-Disposition", "attachment; filename=qrcode.png")
+    w.Write(buf.Bytes())
 }
 
 func parseHexColor(s string, fallback color.Color) color.Color {
