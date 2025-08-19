@@ -14,10 +14,6 @@
             "use": "@vercel/go"
         },
         {
-            "src": "api/textutils/textutils.go",
-            "use": "@vercel/go"
-        },
-        {
             "src": "api/textformatter/textformatter.go",
             "use": "@vercel/go"
         },
@@ -26,15 +22,7 @@
             "use": "@vercel/go"
         },
         {
-            "src": "api/quotes/quotes.go",
-            "use": "@vercel/go"
-        },
-        {
             "src": "api/bmi/bmi.go",
-            "use": "@vercel/go"
-        },
-        {
-            "src": "api/num2words/num2words.go",
             "use": "@vercel/go"
         },
         {
@@ -54,7 +42,7 @@
             "use": "@vercel/go"
         },
         {
-            "src": "api/bmi/bmi.go",
+            "src": "api/qrcodegen/qrcodegen.go",
             "use": "@vercel/go"
         }
     ],
@@ -72,10 +60,6 @@
             "dest": "/api/games/games.go"
         },
         {
-            "src": "/textutils",
-            "dest": "/api/textutils/textutils.go"
-        },
-        {
             "src": "/textformatter",
             "dest": "/api/textformatter/textformatter.go"
         },
@@ -84,20 +68,12 @@
             "dest": "/api/unitconverter/unitconverter.go"
         },
         {
-            "src": "/quotes",
-            "dest": "/api/quotes/quotes.go"
-        },
-        {
             "src": "/bmi",
             "dest": "/api/bmi/bmi.go"
         },
         {
             "src": "/num2words",
             "dest": "/api/num2words/num2words.go"
-        },
-        {
-            "src": "/agecalc",
-            "dest": "/api/agecalc/agecalc.go"
         },
         {
             "src": "/palindrome",
