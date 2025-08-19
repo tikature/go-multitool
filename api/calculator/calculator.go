@@ -33,8 +33,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
                 <div class="card shadow p-4">
                     <h2 class="text-center mb-3">Calculator</h2>
                     <div class="alert alert-success text-center">Result: %.2f</div>
-                    <a href="/calculator" class="btn btn-primary btn-sm me-2">Back</a><br>
-                    <a href="/" class="btn btn-secondary btn-sm me-2">Menu</a>
+                    <a href="/calculator" class="btn btn-primary col-12">Back</a><br>
+                    <a href="/" class="btn btn-secondary col-12">Menu</a>
                 </div>
             </div>
         </body>
