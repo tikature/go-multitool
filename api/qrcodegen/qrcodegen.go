@@ -77,12 +77,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		<h1>QR Code Generator</h1>
 		<form method="POST">
 			<input type="text" name="text" placeholder="Enter text or link" required><br><br>
-			
-			<label>Style:</label>
-			<select name="style">
-				<option value="square">Square</option>
-				<option value="circle">Circle</option>
-			</select><br><br>
 
 			<label>Foreground:</label>
 			<input type="color" name="fg" value="#000000"><br><br>
