@@ -23,7 +23,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
             <li><a href="/unitconverter">Unit Converter</a></li>
             <li><a href="/quotes">Random Quote Generator</a></li>
             <li><a href="/bmi">BMI Calculator</a></li>
-            <li><a href="/num2words">Number to Words</a></li>
+            <li><a href="/agecalc">Age Calculator</a></li>
+            <li><a href="/palindrome">Palindrome Checker</a></li>
+            <li><a href="/prime">Prime Checker</a></li>
+            <li><a href="/passwordgen">Password Generator</a></li>
+            <li><a href="/qrcodegen">QR Code Generator</a></li>
         </ul>
     </body>
     </html>

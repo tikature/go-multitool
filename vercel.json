@@ -36,6 +36,26 @@
         {
             "src": "api/num2words/num2words.go",
             "use": "@vercel/go"
+        },
+        {
+            "src": "api/prime/prime.go",
+            "use": "@vercel/go"
+        },
+        {
+            "src": "api/agecalc/agecalc.go",
+            "use": "@vercel/go"
+        },
+        {
+            "src": "api/palindrome/palindrome.go",
+            "use": "@vercel/go"
+        },
+        {
+            "src": "api/passwordgen/passwordgen.go",
+            "use": "@vercel/go"
+        },
+        {
+            "src": "api/bmi/bmi.go",
+            "use": "@vercel/go"
         }
     ],
     "routes": [
@@ -74,6 +94,26 @@
         {
             "src": "/num2words",
             "dest": "/api/num2words/num2words.go"
+        },
+        {
+            "src": "/agecalc",
+            "dest": "/api/agecalc/agecalc.go"
+        },
+        {
+            "src": "/palindrome",
+            "dest": "/api/palindrome/palindrome.go"
+        },
+        {
+            "src": "/prime",
+            "dest": "/api/prime/prime.go"
+        },
+        {
+            "src": "/passwordgen",
+            "dest": "/api/passwordgen/passwordgen.go"
+        },
+        {
+            "src": "/qrcodegen",
+            "dest": "/api/qrcodegen/qrcodegen.go"
         },
         {
             "src": "/static/(.*)",
