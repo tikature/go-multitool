@@ -33,9 +33,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
                 <div class="card shadow p-4">
                     <h2 class="text-center mb-3">Calculator</h2>
                     <div class="alert alert-success text-center">Result: %.2f</div>
-                    <div class="btn-group mt-3" role="group">
-                        <a href="/calculator" class="btn btn-primary btn-sm">Back/a>
-                        <a href="/" class="btn btn-secondary btn-sm">Menu</a>
+                    <div class="d-flex justify-content-center gap-3 mt-3">
+                        <a href="/calculator" class="btn btn-primary px-4">Back</a>
+                        <a href="/" class="btn btn-secondary px-4">Menu</a>
                     </div>
                 </div>
             </div>
