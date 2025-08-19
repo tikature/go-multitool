@@ -6,36 +6,51 @@ import (
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "text/html; charset=utf-8") // penting: UTF-8
+    w.Header().Set("Content-Type", "text/html; charset=utf-8") // UTF-8 untuk emoji
     fmt.Fprint(w, `
     <html>
     <head>
         <meta charset="UTF-8">
         <title>Go MultiTool</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                background: linear-gradient(to right, #f8f9fa, #fff0f5);
+            }
+            .tool-btn {
+                min-width: 200px;
+                margin: 8px;
+            }
+            footer {
+                background-color: #ffb6c1; /* Pink blossom */
+                color: #333;
+                font-weight: 500;
+                letter-spacing: 1px;
+            }
+        </style>
     </head>
-    <body class="bg-light">
+    <body>
         <div class="container mt-5 mb-5">
-            <div class="card shadow p-4">
-                <h1 class="text-center mb-4">Go MultiTool</h1>
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="/calculator">🧮 Calculator</a></li>
-                    <li class="list-group-item"><a href="/games">🎮 Guess Number Game</a></li>
-                    <li class="list-group-item"><a href="/textformatter">📝 Text Formatter</a></li>
-                    <li class="list-group-item"><a href="/unitconverter">📏 Unit Converter</a></li>
-                    <li class="list-group-item"><a href="/bmi">⚖️ BMI Calculator</a></li>
-                    <li class="list-group-item"><a href="/agecalc">📅 Age Calculator</a></li>
-                    <li class="list-group-item"><a href="/palindrome">🔄 Palindrome Checker</a></li>
-                    <li class="list-group-item"><a href="/prime">🔢 Prime Checker</a></li>
-                    <li class="list-group-item"><a href="/passwordgen">🔑 Password Generator</a></li>
-                    <li class="list-group-item"><a href="/qrcodegen">📷 QR Code Generator</a></li>
-                </ul>
+            <div class="card shadow-lg p-4">
+                <h1 class="text-center mb-4 text-primary"> Go MultiTool 🌟 </h1>
+                <div class="d-flex flex-wrap justify-content-center">
+                    <a href="/calculator" class="btn btn-outline-primary tool-btn">🧮 Calculator</a>
+                    <a href="/games" class="btn btn-outline-success tool-btn">🎮 Guess Number</a>
+                    <a href="/textformatter" class="btn btn-outline-warning tool-btn">📝 Text Formatter</a>
+                    <a href="/unitconverter" class="btn btn-outline-info tool-btn">📏 Unit Converter</a>
+                    <a href="/bmi" class="btn btn-outline-danger tool-btn">⚖️ BMI Calculator</a>
+                    <a href="/agecalc" class="btn btn-outline-secondary tool-btn">📅 Age Calculator</a>
+                    <a href="/palindrome" class="btn btn-outline-dark tool-btn">🔄 Palindrome Checker</a>
+                    <a href="/prime" class="btn btn-outline-primary tool-btn">🔢 Prime Checker</a>
+                    <a href="/passwordgen" class="btn btn-outline-success tool-btn">🔑 Password Generator</a>
+                    <a href="/qrcodegen" class="btn btn-outline-warning tool-btn">📷 QR Code Generator</a>
+                </div>
             </div>
         </div>
 
-        <!-- Footer tetap -->
-        <footer class="bg-dark text-white text-center py-3 fixed-bottom">
-            by hilda
+        <!-- Footer -->
+        <footer class="text-center py-3 fixed-bottom shadow">
+            <p class="mb-0">Made with ❤️ by <a href="github.com/tikature" target="_blank">Tikature</a></p>
         </footer>
     </body>
     </html>
