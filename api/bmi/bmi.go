@@ -1,45 +1,78 @@
 package handler
 
 import (
-    "fmt"
-    "net/http"
-    "strconv"
+	"fmt"
+	"net/http"
+	"strconv"
 )
 
-func Handler(w http.ResponseWriter, r *http.Request) {
-    w.Header().Set("Content-Type", "text/html")
+func BMIHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
 
-    if r.Method == http.MethodPost {
-        weight, _ := strconv.ParseFloat(r.FormValue("weight"), 64)
-        height, _ := strconv.ParseFloat(r.FormValue("height"), 64)
-        bmi := weight / (height * height)
+	if r.Method == http.MethodPost {
+		weight, _ := strconv.ParseFloat(r.FormValue("weight"), 64)
+		height, _ := strconv.ParseFloat(r.FormValue("height"), 64)
+		bmi := weight / (height * height)
 
-        category := ""
-        switch {
-        case bmi < 18.5:
-            category = "Underweight"
-        case bmi < 24.9:
-            category = "Normal"
-        case bmi < 29.9:
-            category = "Overweight"
-        default:
-            category = "Obese"
-        }
+		category := ""
+		switch {
+		case bmi < 18.5:
+			category = "Underweight"
+		case bmi < 24.9:
+			category = "Normal"
+		case bmi < 29.9:
+			category = "Overweight"
+		default:
+			category = "Obese"
+		}
 
-        fmt.Fprintf(w, `<p>BMI: %.2f (%s)</p><a href="/bmi">Back</a>`, bmi, category)
-        return
-    }
+		fmt.Fprintf(w, `
+		<html>
+		<head>
+			<title>BMI Calculator</title>
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		</head>
+		<body class="bg-light">
+			<div class="container py-5">
+				<div class="card shadow p-4">
+					<h1 class="mb-4 text-success">BMI Calculator</h1>
+					<div class="alert alert-info">
+						<b>BMI:</b> %.2f <br>
+						<b>Category:</b> %s
+					</div>
+					<a href="/bmi" class="btn btn-outline-success">Back</a>
+					<a href="/" class="btn btn-secondary">Menu</a>
+				</div>
+			</div>
+		</body>
+		</html>
+		`, bmi, category)
+		return
+	}
 
-    fmt.Fprint(w, `
-    <html><head><link rel="stylesheet" href="/static/style.css"><title>BMI Calculator</title></head>
-    <body>
-        <h1>BMI Calculator</h1>
-        <form method="POST">
-            <input name="weight" type="number" step="any" placeholder="Weight (kg) ex: 52" required>
-            <input name="height" type="number" step="any" placeholder="Height (m) ex: 1.53" required>
-            <button type="submit">Calculate</button>
-        </form>
-        <a href="/">Back to menu</a>
-    </body></html>
-    `)
+	fmt.Fprint(w, `
+	<html>
+	<head>
+		<title>BMI Calculator</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<body class="bg-light">
+		<div class="container py-5">
+			<div class="card shadow p-4">
+				<h1 class="mb-4 text-success">BMI Calculator</h1>
+				<form method="POST" class="mb-3">
+					<div class="mb-3">
+						<input class="form-control" name="weight" type="number" step="any" placeholder="Weight (kg) ex: 52" required>
+					</div>
+					<div class="mb-3">
+						<input class="form-control" name="height" type="number" step="any" placeholder="Height (m) ex: 1.53" required>
+					</div>
+					<button type="submit" class="btn btn-success">Calculate</button>
+				</form>
+				<a href="/" class="btn btn-secondary">Back to menu</a>
+			</div>
+		</div>
+	</body>
+	</html>
+	`)
 }
