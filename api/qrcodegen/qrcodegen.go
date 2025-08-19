@@ -6,7 +6,6 @@ import (
     "fmt"
     "image"
     "image/color"
-    "image/draw"
     "image/png"
     "net/http"
 
