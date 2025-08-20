@@ -1,107 +1,100 @@
 package handler
 
 import (
+	"crypto/rand"
 	"fmt"
+	"math/big"
 	"net/http"
-	"github.com/skip2/go-qrcode"
+	"strings"
 )
 
-func Handler(w http.ResponseWriter, r *http.Request) {
-	path := r.URL.Path
+const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()"
 
-	switch path {
-	case "/qrcodegen":
-		qrCodeHandler(w, r)
-	case "/qrcodegen/image":
-		qrCodeImageHandler(w, r)
-	default:
-		homeHandler(w, r)
+func generatePassword(length int) string {
+	result := ""
+	for i := 0; i < length; i++ {
+		n, _ := rand.Int(rand.Reader, big.NewInt(int64(len(charset))))
+		result += string(charset[n.Int64()])
 	}
+	return result
 }
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	fmt.Fprint(w, `
-	<html>
-	<head>
-		<meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Go MultiTool</title>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	</head>
-	<body>
-		<div class="container mt-5 mb-5">
-			<div class="card shadow-lg p-4">
-				<h1 class="text-center mb-4 text-primary"> Go MultiTool 🌟 </h1>
-				<div class="d-flex flex-wrap justify-content-center">
-					<a href="/qrcodegen" class="btn btn-outline-warning tool-btn">📷 QR Code Generator</a>
+func randomInsert(base, insert string) string {
+	posN, _ := rand.Int(rand.Reader, big.NewInt(int64(len(base)+1)))
+	pos := int(posN.Int64())
+	return base[:pos] + insert + base[pos:]
+}
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	if r.Method == http.MethodPost {
+		birth := r.FormValue("birth")          // format yyyy-mm-dd
+		name := strings.ToLower(r.FormValue("name"))
+		birthClean := strings.ReplaceAll(birth, "-", "") // yyyymmdd
+
+		// ambil 3 huruf pertama nama (kalau ada)
+		namePart := ""
+		if len(name) >= 3 {
+			namePart = name[:3]
+		} else {
+			namePart = name
+		}
+
+		randomPart := generatePassword(8) // 8 random chars
+		password := randomInsert(randomPart, birthClean+namePart)
+
+		fmt.Fprintf(w, `
+		<html>
+		<head>
+			<meta charset="UTF-8">
+        	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Password Generator</title>
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		</head>
+		<body class="bg-light">
+			<div class="container mt-5">
+				<div class="card shadow p-4">
+					<h2 class="mb-3 text-primary">🔐 Password Generator</h2>
+					<p class="alert alert-success"><b>Generated Password:</b> %s</p>
+					<a href="/passwordgen" class="btn btn-outline-primary">🔄 Generate Again</a>
+					<a href="/" class="btn btn-secondary ms-2">🏠 Menu</a>
 				</div>
 			</div>
-		</div>
-	</body>
-	</html>
-	`)
-}
-
-func qrCodeHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-
-	if r.Method == http.MethodPost {
-		text := r.FormValue("text")
-		if r.FormValue("download") != "" {
-			png, _ := qrcode.Encode(text, qrcode.Medium, 256)
-			w.Header().Set("Content-Type", "application/octet-stream")
-			w.Header().Set("Content-Disposition", "attachment; filename=qrcode.png")
-			w.Write(png)
-			return
-		}
-		http.Redirect(w, r, "/qrcodegen?preview="+text, http.StatusSeeOther)
+		</body>
+		</html>
+		`, password)
 		return
 	}
 
-	preview := r.URL.Query().Get("preview")
-
 	fmt.Fprint(w, `
 	<html>
 	<head>
 		<meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>QR Code Generator</title>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+		<title>Password Generator</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body class="bg-light">
 		<div class="container mt-5">
 			<div class="card shadow p-4">
-				<h2 class="text-center mb-4 text-success">📷 QR Code Generator</h2>
-				<form method="POST" class="d-flex gap-2">
-					<input type="text" name="text" class="form-control" placeholder="Masukkan teks atau URL" required>
-					<button type="submit" class="btn btn-primary">Generate</button>
+				<h2 class="mb-3 text-primary">🔐 Password Generator</h2>
+				<form method="POST" class="row g-3">
+					<div class="col-md-6">
+						<label class="form-label">Birth Date:</label>
+						<input name="birth" type="date" class="form-control" required>
+					</div>
+					<div class="col-md-6">
+						<label class="form-label">Name:</label>
+						<input name="name" type="text" class="form-control" placeholder="Enter your name" required>
+					</div>
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary">Generate Password</button>
+						<a href="/" class="btn btn-secondary ms-2">Back to Menu</a>
+					</div>
 				</form>
-	`)
-
-	if preview != "" {
-		fmt.Fprintf(w, `
-			<div class="text-center mt-4">
-				<img src="/qrcodegen/image?text=%s" class="img-thumbnail" alt="QR Code">
-				<form method="POST" class="mt-3">
-					<input type="hidden" name="text" value="%s">
-					<button type="submit" name="download" value="1" class="btn btn-success">⬇️ Download</button>
-				</form>
-			</div>
-		`, preview, preview)
-	}
-
-	fmt.Fprint(w, `
 			</div>
 		</div>
 	</body>
 	</html>
 	`)
-}
-
-func qrCodeImageHandler(w http.ResponseWriter, r *http.Request) {
-	text := r.URL.Query().Get("text")
-	png, _ := qrcode.Encode(text, qrcode.Medium, 256)
-	w.Header().Set("Content-Type", "image/png")
-	w.Write(png)
 }
