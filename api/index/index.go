@@ -9,8 +9,9 @@ func Handler(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "text/html; charset=utf-8") // UTF-8 untuk emoji
     fmt.Fprint(w, `
     <html>
-    <head>
-        <meta charset="UTF-8">
+    <head>	
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Go MultiTool</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
