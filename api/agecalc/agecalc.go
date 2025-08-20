@@ -38,7 +38,7 @@ func AgeCalcHandler(w http.ResponseWriter, r *http.Request) {
 					<h1 class="mb-4 text-warning">Age Calculator</h1>
 					<p><b>Birthdate:</b> %s</p>
 					<div class="alert alert-info"><b>Your age:</b> %d years</div>
-					<a href="/agecalc" class="btn btn-outline-warning">Back</a>
+					<a href="/agecalc" class="btn btn-outline-warning">Back</a><br>
 					<a href="/" class="btn btn-secondary">Menu</a>
 				</div>
 			</div>

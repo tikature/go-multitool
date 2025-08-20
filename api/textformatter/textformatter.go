@@ -40,8 +40,10 @@ func TextFormatterHandler(w http.ResponseWriter, r *http.Request) {
 				<div class="card shadow p-4">
 					<h1 class="mb-4 text-primary">Text Formatter</h1>
 					<div class="alert alert-info"><b>Result:</b> %s</div>
-					<a href="/textformatter" class="btn btn-outline-primary">Back</a>
-					<a href="/" class="btn btn-secondary">Menu</a>
+					<div class="d-flex justify-content-center gap-3 mt-3">
+						<a href="/textformatter" class="btn btn-primary px-4">Back</a>
+						<a href="/" class="btn btn-secondary px-4">Menu</a>
+					</div>
 				</div>
 			</div>
 		</body>

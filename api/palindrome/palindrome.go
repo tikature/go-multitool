@@ -32,7 +32,7 @@ func PalindromeHandler(w http.ResponseWriter, r *http.Request) {
             <div class="card shadow p-4">
                 <h1 class="mb-3">Palindrome Checker</h1>
                 <div class="alert alert-info">Result: %s</div>
-                <a href="/palindrome" class="btn btn-primary">Check Again</a>
+                <a href="/palindrome" class="btn btn-primary">Check Again</a><br>
                 <a href="/" class="btn btn-secondary">Menu</a>
             </div>
         </div>

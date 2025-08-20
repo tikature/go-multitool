@@ -56,7 +56,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 				<div class="card shadow p-4">
 					<h2 class="mb-3 text-primary">🔐 Password Generator</h2>
 					<p class="alert alert-success"><b>Generated Password:</b> %s</p>
-					<a href="/passwordgen" class="btn btn-outline-primary">🔄 Generate Again</a>
+					<a href="/passwordgen" class="btn btn-outline-primary">🔄 Generate Again</a><br>
 					<a href="/" class="btn btn-secondary ms-2">🏠 Menu</a>
 				</div>
 			</div>
