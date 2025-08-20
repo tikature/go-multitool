@@ -42,12 +42,8 @@ func BMIHandler(w http.ResponseWriter, r *http.Request) {
 						<b>BMI:</b> %.2f <br>
 						<b>Category:</b> %s
 					</div>
-					<a href="/bmi" class="btn btn-outline-success">Back</a>
+					<a href="/bmi" class="btn btn-outline-success">Back</a> <br>
 					<a href="/" class="btn btn-secondary">Menu</a>
-					<div class="d-flex justify-content-center gap-3 mt-3">
-                        <a href="/bmi" class="btn btn-primary px-4">Back</a>
-                        <a href="/" class="btn btn-secondary px-4">Menu</a>
-                    </div>
 				</div>
 			</div>
 		</body>
